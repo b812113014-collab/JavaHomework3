@@ -1,0 +1,508 @@
+P04  繼承父類別方法和新增子類別方法
+目錄  CH4/P04
+
+檔案  CH4P04.java
+public class CH4P04 {
+    public static void main(String[] args) {
+        RacingCar car = new RacingCar();
+        car.setCar(1234, 20.5);
+        car.setCourse(5);
+        car.show();
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class RacingCar extends Car {
+        private int course;
+
+        void setCourse(int course) {
+            this.course = course;
+            System.out.println("賽車編號：" + this.course);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P06  用 super 呼叫父類別建構式
+目錄  CH4/P06
+
+檔案  CH4P06.java
+public class CH4P06 {
+    public static void main(String[] args) {
+        RacingCar car = new RacingCar(1234, 20.5, 5);
+        car.show();
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        Car(int num, double gas) {
+            setCar(num, gas);
+            System.out.println("已建立車輛");
+        }
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class RacingCar extends Car {
+        private final int course;
+
+        RacingCar(int num, double gas, int course) {
+            super(num, gas);
+            this.course = course;
+            System.out.println("已建立編號 " + this.course + " 的賽車");
+        }
+    }
+}
+
+════════════════════════════════════════════
+P09  子類別讀取 protected 成員
+目錄  CH4/P09
+
+檔案  CH4P09.java
+public class CH4P09 {
+    public static void main(String[] args) {
+        RacingCar car = new RacingCar();
+        car.newShow();
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class RacingCar extends Car {
+        private int course;
+
+        void setCourse(int course) {
+            this.course = course;
+        }
+
+        void newShow() {
+            System.out.println("賽車車號：" + num + "，汽油量：" + gas + "，賽車編號：" + course);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P11  覆寫父類別的 show 方法
+目錄  CH4/P11
+
+檔案  CH4P11.java
+public class CH4P11 {
+    public static void main(String[] args) {
+        RacingCar car = new RacingCar();
+        car.setCar(1234, 20.5);
+        car.setCourse(5);
+        car.show();
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class RacingCar extends Car {
+        private int course;
+
+        void setCourse(int course) {
+            this.course = course;
+        }
+
+        @Override
+        void show() {
+            System.out.println("賽車車號：" + num + "，汽油量：" + gas + "，賽車編號：" + course);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P14  父類別參考呼叫子類別覆寫方法
+目錄  CH4/P14
+
+檔案  CH4P14.java
+public class CH4P14 {
+    public static void main(String[] args) {
+        Car car = new RacingCar();
+        car.setCar(1234, 20.5);
+        car.show();
+
+        // car.setCourse(5); // 編譯型別 Car 未宣告 setCourse。
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class RacingCar extends Car {
+        private int course;
+
+        void setCourse(int course) {
+            this.course = course;
+        }
+
+        @Override
+        void show() {
+            System.out.println("賽車車號：" + num + "，汽油量：" + gas + "，賽車編號：" + course);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P17  使用父類別陣列展示多型
+目錄  CH4/P17
+
+檔案  CH4P17.java
+public class CH4P17 {
+    public static void main(String[] args) {
+        Car[] cars = {new Car(), new RacingCar()};
+        cars[0].setCar(1234, 20.5);
+        cars[1].setCar(4567, 30.5);
+
+        for (Car car : cars) {
+            car.show();
+        }
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class RacingCar extends Car {
+        private int course;
+
+        void setCourse(int course) {
+            this.course = course;
+        }
+
+        @Override
+        void show() {
+            System.out.println("賽車車號：" + num + "，汽油量：" + gas + "，賽車編號：" + course);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P24  覆寫 Object.toString
+目錄  CH4/P24
+
+檔案  CH4P24.java
+public class CH4P24 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.setCar(1234, 20.5);
+        System.out.println(car);
+    }
+
+    static class Car {
+        protected int num;
+        protected double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        @Override
+        public String toString() {
+            return "車號：" + num + "，汽油量：" + gas;
+        }
+    }
+}
+
+════════════════════════════════════════════
+P25  Object.equals 預設的物件身分比較
+目錄  CH4/P25
+
+檔案  CH4P25.java
+public class CH4P25 {
+    public static void main(String[] args) {
+        Car first = new Car();
+        Car second = new Car();
+        Car third = first;
+
+        System.out.println("first.equals(second) = " + first.equals(second));
+        System.out.println("first.equals(third) = " + first.equals(third));
+    }
+
+    static class Car {}
+}
+
+════════════════════════════════════════════
+P26  用 getClass 查詢物件執行期類別
+目錄  CH4/P26
+
+檔案  CH4P26.java
+public class CH4P26 {
+    public static void main(String[] args) {
+        Car[] cars = {new Car(), new RacingCar()};
+        for (Car car : cars) {
+            Class<?> type = car.getClass();
+            System.out.println("實際類別：" + type.getSimpleName());
+        }
+    }
+
+    static class Car {}
+
+    static class RacingCar extends Car {}
+}
+
+════════════════════════════════════════════
+P29  抽象類別陣列與多型
+目錄  CH4/P29
+
+檔案  CH4P29.java
+public class CH4P29 {
+    public static void main(String[] args) {
+        Vehicle[] vehicles = {new Car(1234, 20.5), new Plane(232)};
+        vehicles[0].setSpeed(60);
+        vehicles[1].setSpeed(500);
+
+        for (Vehicle vehicle : vehicles) {
+            vehicle.show();
+        }
+    }
+
+    abstract static class Vehicle {
+        protected int speed;
+
+        void setSpeed(int speed) {
+            this.speed = speed;
+        }
+
+        abstract void show();
+    }
+
+    static class Car extends Vehicle {
+        private final int num;
+        private final double gas;
+
+        Car(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        @Override
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas + "，速度：" + speed);
+        }
+    }
+
+    static class Plane extends Vehicle {
+        private final int flightNumber;
+
+        Plane(int flightNumber) {
+            this.flightNumber = flightNumber;
+        }
+
+        @Override
+        void show() {
+            System.out.println("班次：" + flightNumber + "，速度：" + speed);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P32  用 instanceof 與 getClass 比較型別
+目錄  CH4/P32
+
+檔案  CH4P32.java
+public class CH4P32 {
+    public static void main(String[] args) {
+        Vehicle[] vehicles = {new Car(1234, 20.5), new Plane(232), new RacingCar()};
+        for (Vehicle vehicle : vehicles) {
+            System.out.println(vehicle.getClass().getSimpleName()
+                    + "：instanceof Car = " + (vehicle instanceof Car)
+                    + "，精確類別是 Car = " + (vehicle.getClass() == Car.class));
+        }
+    }
+
+    abstract static class Vehicle {
+        protected int speed;
+
+        void setSpeed(int speed) {
+            this.speed = speed;
+        }
+
+        abstract void show();
+    }
+
+    static class Car extends Vehicle {
+        private final int num;
+        private final double gas;
+
+        Car(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        @Override
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas + "，速度：" + speed);
+        }
+    }
+
+    static class Plane extends Vehicle {
+        private final int flightNumber;
+
+        Plane(int flightNumber) {
+            this.flightNumber = flightNumber;
+        }
+
+        @Override
+        void show() {
+            System.out.println("班次：" + flightNumber + "，速度：" + speed);
+        }
+    }
+
+    static class RacingCar extends Car {
+        RacingCar() {
+            super(5678, 30.5);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P38  介面陣列與多型
+目錄  CH4/P38
+
+檔案  CH4P38.java
+public class CH4P38 {
+    public static void main(String[] args) {
+        Vehicle[] vehicles = {new Car(1234, 20.5), new Plane(232)};
+        for (Vehicle vehicle : vehicles) {
+            vehicle.show();
+        }
+    }
+
+    interface Vehicle {
+        void show();
+    }
+
+    static class Car implements Vehicle {
+        private final int num;
+        private final double gas;
+
+        Car(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        @Override
+        public void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+
+    static class Plane implements Vehicle {
+        private final int flightNumber;
+
+        Plane(int flightNumber) {
+            this.flightNumber = flightNumber;
+        }
+
+        @Override
+        public void show() {
+            System.out.println("班次：" + flightNumber);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P41  同一類別實作多個介面
+目錄  CH4/P41
+
+檔案  CH4P41.java
+public class CH4P41 {
+    public static void main(String[] args) {
+        Car car = new Car(1234, 20.5);
+        car.vShow();
+        car.mShow();
+    }
+
+    interface Vehicle {
+        void vShow();
+    }
+
+    interface Material {
+        void mShow();
+    }
+
+    static class Car implements Vehicle, Material {
+        private final int num;
+        private final double gas;
+
+        Car(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        @Override
+        public void vShow() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+
+        @Override
+        public void mShow() {
+            System.out.println("材質：鐵");
+        }
+    }
+}
