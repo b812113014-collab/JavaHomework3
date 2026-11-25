@@ -1,0 +1,701 @@
+P06  拆成兩個 Java 檔
+目錄  CH5/P06
+進入本題目錄後，依序執行 javac -encoding UTF-8 -d out CH5P06.java Car.java 和 java -cp out CH5P06。
+
+檔案  CH5P06.java
+public class CH5P06 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.show();
+    }
+}
+
+檔案  Car.java
+class Car {
+    private final int num;
+    private final double gas;
+
+    Car() {
+        num = 0;
+        gas = 0.0;
+        System.out.println("已建立汽車");
+    }
+
+    void show() {
+        System.out.println("車號：" + num + "，汽油量：" + gas);
+    }
+}
+
+════════════════════════════════════════════
+P08  兩個檔案使用同一套件
+目錄  CH5/P08
+進入本題目錄後，依序執行 javac -encoding UTF-8 -d out pa/CH5P08.java pa/Car.java 和 java -cp out pa.CH5P08。
+
+檔案  pa/CH5P08.java
+package pa;
+
+public class CH5P08 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.show();
+    }
+}
+
+檔案  pa/Car.java
+package pa;
+
+class Car {
+    private final int num;
+    private final double gas;
+
+    Car() {
+        num = 0;
+        gas = 0.0;
+        System.out.println("已建立汽車");
+    }
+
+    void show() {
+        System.out.println("車號：" + num + "，汽油量：" + gas);
+    }
+}
+
+════════════════════════════════════════════
+P10  用完整類別名稱跨套件存取
+目錄  CH5/P10
+進入本題目錄後，依序執行 javac -encoding UTF-8 -d out pb/CH5P10.java pc/Car.java 和 java -cp out pb.CH5P10。
+
+檔案  pb/CH5P10.java
+package pb;
+
+public class CH5P10 {
+    public static void main(String[] args) {
+        pc.Car car = new pc.Car();
+        car.show();
+    }
+}
+
+檔案  pc/Car.java
+package pc;
+
+public class Car {
+    private final int num;
+    private final double gas;
+
+    public Car() {
+        num = 0;
+        gas = 0.0;
+        System.out.println("已建立汽車");
+    }
+
+    public void show() {
+        System.out.println("車號：" + num + "，汽油量：" + gas);
+    }
+}
+
+════════════════════════════════════════════
+P14  用 import 跨套件存取
+目錄  CH5/P14
+進入本題目錄後，依序執行 javac -encoding UTF-8 -d out pb/CH5P14.java pc/Car.java 和 java -cp out pb.CH5P14。
+
+檔案  pb/CH5P14.java
+package pb;
+
+import pc.Car;
+
+public class CH5P14 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.show();
+    }
+}
+
+檔案  pc/Car.java
+package pc;
+
+public class Car {
+    private final int num;
+    private final double gas;
+
+    public Car() {
+        num = 0;
+        gas = 0.0;
+        System.out.println("已建立汽車");
+    }
+
+    public void show() {
+        System.out.println("車號：" + num + "，汽油量：" + gas);
+    }
+}
+
+════════════════════════════════════════════
+P19  觀察未捕捉的陣列越界例外
+目錄  CH5/P19
+刻意觸發 ArrayIndexOutOfBoundsException，屬於預期結果。
+
+檔案  CH5P19.java
+public class CH5P19 {
+    public static void main(String[] args) {
+        int[] values = new int[5];
+        System.out.println("準備設定索引 10");
+        values[10] = 80;
+        System.out.println("已完成設定");
+    }
+}
+
+════════════════════════════════════════════
+P21  使用 try-catch 捕捉陣列越界例外
+目錄  CH5/P21
+
+檔案  CH5P21.java
+public class CH5P21 {
+    public static void main(String[] args) {
+        try {
+            int[] values = new int[5];
+            System.out.println("準備設定索引 10");
+            values[10] = 80;
+            System.out.println("已完成設定");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("超出陣列範圍");
+        }
+        System.out.println("程式繼續執行");
+    }
+}
+
+════════════════════════════════════════════
+P24  使用 finally 收尾
+目錄  CH5/P24
+
+檔案  CH5P24.java
+public class CH5P24 {
+    public static void main(String[] args) {
+        try {
+            int[] values = new int[5];
+            System.out.println("準備設定索引 10");
+            values[10] = 80;
+            System.out.println("已完成設定");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("超出陣列範圍");
+        } finally {
+            System.out.println("執行 finally 區塊");
+        }
+        System.out.println("程式繼續執行");
+    }
+}
+
+════════════════════════════════════════════
+P26  讀取例外型別與訊息
+目錄  CH5/P26
+
+檔案  CH5P26.java
+public class CH5P26 {
+    public static void main(String[] args) {
+        try {
+            int[] values = new int[5];
+            System.out.println("準備設定索引 10");
+            values[10] = 80;
+            System.out.println("已完成設定");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("超出陣列範圍");
+            System.out.println("例外類型：" + e.getClass().getSimpleName());
+            System.out.println("例外訊息：" + e.getMessage());
+        } finally {
+            System.out.println("執行 finally 區塊");
+        }
+        System.out.println("程式繼續執行");
+    }
+}
+
+════════════════════════════════════════════
+P30  定義並拋出自訂例外
+目錄  CH5/P30
+
+檔案  CH5P30.java
+public class CH5P30 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        try {
+            car.setCar(1234, 20.5);
+            car.setCar(5678, -10.0);
+        } catch (CarException e) {
+            System.out.println(e.getMessage());
+        }
+        car.show();
+    }
+
+    static class CarException extends Exception {
+        CarException(String message) {
+            super(message);
+        }
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) throws CarException {
+            if (gas < 0.0) {
+                throw new CarException("汽油量不得小於零");
+            }
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P32  在 main 以 throws 往外傳遞例外
+目錄  CH5/P32
+刻意讓 CarException 傳出 main，屬於預期結果。
+
+檔案  CH5P32.java
+public class CH5P32 {
+    public static void main(String[] args) throws CarException {
+        Car car = new Car();
+        car.setCar(1234, -10.0);
+        car.show();
+    }
+
+    static class CarException extends Exception {
+        CarException(String message) {
+            super(message);
+        }
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) throws CarException {
+            if (gas < 0.0) {
+                throw new CarException("汽油量不得小於零");
+            }
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P34  從標準輸入讀取一行
+目錄  CH5/P34
+輸入範例：hello。
+
+檔案  CH5P34.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+public class CH5P34 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8));
+
+        System.out.println("請輸入一行文字");
+        String line = reader.readLine();
+        if (line == null) {
+            System.out.println("沒有讀到輸入");
+            return;
+        }
+        System.out.println("已輸入：" + line);
+    }
+}
+
+════════════════════════════════════════════
+P35  以緩衝串流寫入檔案
+目錄  CH5/P35
+會在目前執行目錄建立或覆寫 test1.txt，請在練習資料夾執行。
+
+檔案  CH5P35.java
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class CH5P35 {
+    public static void main(String[] args) {
+        Path path = Path.of("test1.txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+            writer.write("Hello!");
+            writer.newLine();
+            writer.write("GoodBye!");
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("寫入失敗：" + e.getMessage());
+            return;
+        }
+        System.out.println("已寫入 " + path.toAbsolutePath());
+    }
+}
+
+════════════════════════════════════════════
+P36  以緩衝串流讀取檔案
+目錄  CH5/P36
+請在同一工作目錄先跑 P35 再跑 P36，或把 P35 產生的 test1.txt 放進 P36 的工作目錄。
+
+檔案  CH5P36.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class CH5P36 {
+    public static void main(String[] args) {
+        Path path = Path.of("test1.txt");
+        try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("讀取失敗：" + e.getMessage());
+        }
+    }
+}
+
+════════════════════════════════════════════
+P40  用命令列引數指定輸入檔
+目錄  CH5/P40
+ZIP 的本題目錄附 test3.txt。先編譯後執行 java CH5P40 test3.txt。
+
+檔案  CH5P40.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class CH5P40 {
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("用法：java CH5P40 test3.txt");
+            return;
+        }
+
+        Path path = Path.of(args[0]);
+        try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("讀取失敗：" + e.getMessage());
+        }
+    }
+}
+
+════════════════════════════════════════════
+P44  用 Thread.start 啟動一個子執行緒
+目錄  CH5/P44
+main 與子執行緒的輸出順序取決於排程。
+
+檔案  CH5P44.java
+public class CH5P44 {
+    public static void main(String[] args) {
+        Thread car = new Car("1 號車");
+        car.start();
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("main 處理第 " + i + " 次工作");
+        }
+    }
+
+    static class Car extends Thread {
+        Car(String name) {
+            super(name);
+        }
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(getName() + " 處理第 " + i + " 次工作");
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P45  啟動兩個子執行緒
+目錄  CH5/P45
+三個執行緒的輸出可以交錯。
+
+檔案  CH5P45.java
+public class CH5P45 {
+    public static void main(String[] args) {
+        Thread first = new Car("1 號車");
+        Thread second = new Car("2 號車");
+        first.start();
+        second.start();
+
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("main 處理第 " + i + " 次工作");
+        }
+    }
+
+    static class Car extends Thread {
+        Car(String name) {
+            super(name);
+        }
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(getName() + " 處理第 " + i + " 次工作");
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P46  讓子執行緒每秒執行一次
+目錄  CH5/P46
+sleep 暫停呼叫它的子執行緒。
+
+檔案  CH5P46.java
+public class CH5P46 {
+    public static void main(String[] args) {
+        Thread car = new Car("1 號車");
+        car.start();
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("main 處理第 " + i + " 次工作");
+        }
+    }
+
+    static class Car extends Thread {
+        Car(String name) {
+            super(name);
+        }
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+                System.out.println(getName() + " 處理第 " + i + " 次工作");
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P47  讓主執行緒每秒執行一次
+目錄  CH5/P47
+sleep 暫停呼叫它的主執行緒。
+
+檔案  CH5P47.java
+public class CH5P47 {
+    public static void main(String[] args) {
+        Thread car = new Car("1 號車");
+        car.start();
+
+        for (int i = 1; i <= 5; i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            System.out.println("main 處理第 " + i + " 次工作");
+        }
+    }
+
+    static class Car extends Thread {
+        Car(String name) {
+            super(name);
+        }
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(getName() + " 處理第 " + i + " 次工作");
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P48  使用 join 等待執行緒完成
+目錄  CH5/P48
+
+檔案  CH5P48.java
+public class CH5P48 {
+    public static void main(String[] args) {
+        Thread car = new Car("1 號車");
+        car.start();
+
+
+            try {
+                car.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            System.out.println("子執行緒已完成，main 結束");
+    }
+
+    static class Car extends Thread {
+        Car(String name) {
+            super(name);
+        }
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(getName() + " 處理第 " + i + " 次工作");
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P50  實作 Runnable 後交給 Thread
+目錄  CH5/P50
+
+檔案  CH5P50.java
+public class CH5P50 {
+    public static void main(String[] args) {
+        Runnable task = new CarTask("1 號車");
+        Thread car = new Thread(task);
+        car.start();
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("main 處理第 " + i + " 次工作");
+        }
+    }
+
+    static class CarTask implements Runnable {
+        private final String name;
+
+        CarTask(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(name + " 處理第 " + i + " 次工作");
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P52  觀察未同步的共用金額更新
+目錄  CH5/P52
+執行緒排程不同，可能出現低於 300 的結果，也可能剛好得到 300。
+
+檔案  CH5P52.java
+public class CH5P52 {
+    public static void main(String[] args) throws InterruptedException {
+        Company company = new Company();
+        Thread first = new Driver(company);
+        Thread second = new Driver(company);
+
+        first.start();
+        second.start();
+        first.join();
+        second.join();
+
+        System.out.println("應有總額：300");
+        System.out.println("實際總額：" + company.getSum());
+    }
+
+    static class Company {
+        private int sum;
+
+        void add(int amount) {
+            int previous = sum;
+            // 增加兩個執行緒讀到同一個舊值的機會。
+            Thread.yield();
+            sum = previous + amount;
+        }
+
+        int getSum() {
+            return sum;
+        }
+    }
+
+    static class Driver extends Thread {
+        private final Company company;
+
+        Driver(Company company) {
+            this.company = company;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 3; i++) {
+                company.add(50);
+            }
+        }
+    }
+}
+
+════════════════════════════════════════════
+P55  以 synchronized 保護共用金額
+目錄  CH5/P55
+兩名駕駛各匯入 3 次、每次 50 元。join 後可讀到總額 300。
+
+檔案  CH5P55.java
+public class CH5P55 {
+    public static void main(String[] args) throws InterruptedException {
+        Company company = new Company();
+        Thread first = new Driver(company);
+        Thread second = new Driver(company);
+
+        first.start();
+        second.start();
+        first.join();
+        second.join();
+
+        System.out.println("應有總額：300");
+        System.out.println("實際總額：" + company.getSum());
+    }
+
+    static class Company {
+        private int sum;
+
+        synchronized void add(int amount) {
+            sum += amount;
+        }
+
+        int getSum() {
+            return sum;
+        }
+    }
+
+    static class Driver extends Thread {
+        private final Company company;
+
+        Driver(Company company) {
+            this.company = company;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 3; i++) {
+                company.add(50);
+            }
+        }
+    }
+}
+
+P40 的 test3.txt 內容
+A long time ago,
+There was a little girl.
