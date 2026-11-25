@@ -1,0 +1,739 @@
+P05  建立物件
+目錄  CH3/P05
+
+檔案  CH3P05.java
+public class CH3P05 {
+    public static void main(String[] args) {
+        Car car;
+        car = new Car();
+        System.out.println("已建立物件：" + car.getClass().getSimpleName());
+    }
+
+    static class Car {}
+}
+
+════════════════════════════════════════════
+P06  設定及讀取物件欄位
+目錄  CH3/P06
+
+檔案  CH3P06.java
+public class CH3P06 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.num = 1234;
+        car.gas = 20.5;
+
+        System.out.println("車號：" + car.num);
+        System.out.println("汽油量：" + car.gas);
+    }
+
+    static class Car {
+        int num;
+        double gas;
+    }
+}
+
+════════════════════════════════════════════
+P07  建立兩個獨立物件
+目錄  CH3/P07
+
+檔案  CH3P07.java
+public class CH3P07 {
+    public static void main(String[] args) {
+        Car first = new Car();
+        first.num = 1234;
+        first.gas = 20.5;
+
+        Car second = new Car();
+        second.num = 2345;
+        second.gas = 30.5;
+
+        System.out.println("第一輛：" + first.num + "，" + first.gas);
+        System.out.println("第二輛：" + second.num + "，" + second.gas);
+    }
+
+    static class Car {
+        int num;
+        double gas;
+    }
+}
+
+════════════════════════════════════════════
+P09  物件欄位與 this
+目錄  CH3/P09
+
+檔案  CH3P09.java
+public class CH3P09 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.num = 1234;
+        car.gas = 20.5;
+        car.show();
+    }
+
+    static class Car {
+        int num;
+        double gas;
+
+        void show() {
+            System.out.println("車號：" + this.num);
+            System.out.println("汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P11  重複呼叫物件方法
+目錄  CH3/P11
+
+檔案  CH3P11.java
+public class CH3P11 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.num = 1234;
+        car.gas = 20.5;
+
+        car.show();
+        car.show();
+    }
+
+    static class Car {
+        int num;
+        double gas;
+
+        void show() {
+            System.out.println("車號：" + this.num);
+            System.out.println("汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P12  同一物件內的方法互叫
+目錄  CH3/P12
+
+檔案  CH3P12.java
+public class CH3P12 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.num = 1234;
+        car.gas = 20.5;
+        car.showCar();
+    }
+
+    static class Car {
+        int num;
+        double gas;
+
+        void show() {
+            System.out.println("車號：" + this.num);
+            System.out.println("汽油量：" + gas);
+        }
+
+        void showCar() {
+            System.out.println("開始顯示車輛資料");
+            this.show();
+        }
+    }
+}
+
+════════════════════════════════════════════
+P14  傳入一個引數
+目錄  CH3/P14
+
+檔案  CH3P14.java
+public class CH3P14 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        int number = 1234;
+        car.setNum(number);
+        car.setGas(20.5);
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setNum(int num) {
+            this.num = num;
+            System.out.println("車號已設為 " + this.num);
+        }
+
+        void setGas(double gas) {
+            this.gas = gas;
+            System.out.println("汽油量已設為 " + this.gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P15  一次傳入兩個引數
+目錄  CH3/P15
+
+檔案  CH3P15.java
+public class CH3P15 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        int number = 1234;
+        double gasoline = 20.5;
+        car.setCar(number, gasoline);
+        car.show();
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P16  方法的回傳值
+目錄  CH3/P16
+投影片為語法頁，這裡補一個可執行的 return 範例。
+
+檔案  CH3P16.java
+public class CH3P16 {
+    public static void main(String[] args) {
+        double remaining = fuelAfterTrip(20.5, 3.0);
+        System.out.println("剩餘汽油量：" + remaining);
+    }
+
+    static double fuelAfterTrip(double original, double used) {
+        return original - used;
+    }
+}
+
+════════════════════════════════════════════
+P17  getter 的回傳型別
+目錄  CH3/P17
+
+檔案  CH3P17.java
+public class CH3P17 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.setCar(1234, 20.5);
+        int number = car.getNum();
+        double gasoline = car.getGas();
+        System.out.println("車號：" + number + "，汽油量：" + gasoline);
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+
+        int getNum() {
+            return num;
+        }
+
+        double getGas() {
+            return gas;
+        }
+    }
+}
+
+════════════════════════════════════════════
+P20  未限制欄位存取的問題
+目錄  CH3/P20
+刻意輸出負汽油量，供 P22 比較。
+
+檔案  CH3P20.java
+public class CH3P20 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.num = 1234;
+        car.gas = -10.0;
+        car.show();
+    }
+
+    static class Car {
+        int num;
+        double gas;
+
+        void show() {
+            System.out.println("車號：" + this.num);
+            System.out.println("汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P22  private 欄位及資料檢查
+目錄  CH3/P22
+
+檔案  CH3P22.java
+public class CH3P22 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.setCar(1234, 20.5);
+        car.setCar(5678, -10.0);
+        car.show();
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) {
+            if (!(gas >= 0.0 && gas <= 100.0)) {
+                System.out.println("汽油量無效，保留原資料");
+                return;
+            }
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P24  方法多載
+目錄  CH3/P24
+
+檔案  CH3P24.java
+public class CH3P24 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.setCar(1234, 20.5);
+        car.show();
+        car.setCar(2345);
+        car.show();
+        car.setCar(30.5);
+        car.show();
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num) {
+            this.num = num;
+        }
+
+        void setCar(double gas) {
+            this.gas = gas;
+        }
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P26  無參數建構式
+目錄  CH3/P26
+
+檔案  CH3P26.java
+public class CH3P26 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.show();
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        Car() {
+            num = 0;
+            gas = 0.0;
+            System.out.println("已建立車輛");
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P27  建構式多載
+目錄  CH3/P27
+
+檔案  CH3P27.java
+public class CH3P27 {
+    public static void main(String[] args) {
+        Car first = new Car();
+        first.show();
+
+        Car second = new Car(1234, 25.0);
+        second.show();
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        Car() {
+            num = 0;
+            gas = 0.0;
+            System.out.println("已建立車輛");
+        }
+
+
+        Car(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P28  使用 this() 呼叫另一個建構式
+目錄  CH3/P28
+
+檔案  CH3P28.java
+public class CH3P28 {
+    public static void main(String[] args) {
+        Car first = new Car();
+        first.show();
+
+        Car second = new Car(1234, 25.0);
+        second.show();
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        Car() {
+            num = 0;
+            gas = 0.0;
+            System.out.println("已建立車輛");
+        }
+
+
+        Car(int num, double gas) {
+                this();
+        this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P31  static 類別變數與方法
+目錄  CH3/P31
+
+檔案  CH3P31.java
+public class CH3P31 {
+    public static void main(String[] args) {
+        Car.showCount();
+        new Car();
+        Car.showCount();
+        new Car();
+        Car.showCount();
+    }
+
+    static class Car {
+        private static int count;
+
+        Car() {
+            count++;
+        }
+
+        static void showCount() {
+            System.out.println("已建立車輛數：" + count);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P34  使用 Java 類別庫讀取整數
+目錄  CH3/P34
+輸入範例：42。
+
+檔案  CH3P34.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+public class CH3P34 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8));
+
+        System.out.println("請輸入一個整數");
+        String line = reader.readLine();
+        if (line == null) {
+            System.out.println("沒有讀到輸入");
+            return;
+        }
+        try {
+            System.out.println("輸入的整數：" + Integer.parseInt(line.trim()));
+        } catch (NumberFormatException e) {
+            System.out.println("輸入必須是 int 範圍內的整數");
+        }
+    }
+}
+
+════════════════════════════════════════════
+P36  String 的 charAt 與 length
+目錄  CH3/P36
+
+檔案  CH3P36.java
+public class CH3P36 {
+    public static void main(String[] args) {
+        String text = "Hello";
+        System.out.println("第一個字元：" + text.charAt(0));
+        System.out.println("第二個字元：" + text.charAt(1));
+        System.out.println("長度：" + text.length());
+    }
+}
+
+════════════════════════════════════════════
+P37  英文大小寫轉換
+目錄  CH3/P37
+輸入範例：Hello。
+
+檔案  CH3P37.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+
+public class CH3P37 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8));
+
+        System.out.println("請輸入英文字串");
+        String text = reader.readLine();
+        if (text == null) {
+            return;
+        }
+        System.out.println("大寫：" + text.toUpperCase(Locale.ROOT));
+        System.out.println("小寫：" + text.toLowerCase(Locale.ROOT));
+    }
+}
+
+════════════════════════════════════════════
+P38  使用 indexOf 尋找字元
+目錄  CH3/P38
+兩行輸入範例：第一行「輕鬆學JAVA」，第二行「學」。
+
+檔案  CH3P38.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+public class CH3P38 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8));
+
+        System.out.println("請輸入字串");
+        String text = reader.readLine();
+        System.out.println("請輸入一個要搜尋的字元");
+        String query = reader.readLine();
+        if (text == null || query == null || query.codePointCount(0, query.length()) != 1) {
+            System.out.println("請輸入原字串及一個要搜尋的字元");
+            return;
+        }
+        int index = text.indexOf(query.codePointAt(0));
+        if (index == -1) {
+            System.out.println("找不到 " + query);
+        } else {
+            System.out.println("出現在第 " + (text.codePointCount(0, index) + 1) + " 個字元");
+        }
+    }
+}
+
+════════════════════════════════════════════
+P40  使用 StringBuffer 追加字串
+目錄  CH3/P40
+兩行輸入範例：第一行「輕鬆學」，第二行「JAVA」。
+
+檔案  CH3P40.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+public class CH3P40 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8));
+
+        System.out.println("請輸入兩行文字");
+        String first = reader.readLine();
+        String second = reader.readLine();
+        if (first == null || second == null) {
+            System.out.println("需要兩行輸入");
+            return;
+        }
+        StringBuffer buffer = new StringBuffer(first);
+        buffer.append(second);
+        System.out.println("合併結果：" + buffer.toString());
+    }
+}
+
+════════════════════════════════════════════
+P43  使用 Math.max 比較兩個整數
+目錄  CH3/P43
+兩行輸入範例：5 和 10。
+
+檔案  CH3P43.java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+public class CH3P43 {
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in, StandardCharsets.UTF_8));
+
+        System.out.println("請各用一行輸入兩個整數");
+        String first = reader.readLine();
+        String second = reader.readLine();
+        if (first == null || second == null) {
+            System.out.println("需要輸入兩個整數");
+            return;
+        }
+        try {
+            int a = Integer.parseInt(first.trim());
+            int b = Integer.parseInt(second.trim());
+            System.out.println("最大值：" + Math.max(a, b));
+        } catch (NumberFormatException e) {
+            System.out.println("輸入必須是 int 範圍內的整數");
+        }
+    }
+}
+
+════════════════════════════════════════════
+P45  兩個參考變數指向同一物件
+目錄  CH3/P45
+
+檔案  CH3P45.java
+public class CH3P45 {
+    public static void main(String[] args) {
+        Car first = new Car();
+        first.setCar(1234, 20.5);
+        Car second = first;
+        second.show();
+
+        first.setCar(2345, 30.5);
+        first.show();
+        second.show();
+        System.out.println("指向同一物件：" + (first == second));
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P47  String 作為欄位及方法參數
+目錄  CH3/P47
+
+檔案  CH3P47.java
+public class CH3P47 {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.setCar(1234, 20.5);
+        String label = "1 號車";
+        car.setName(label);
+        car.show();
+    }
+
+    static class Car {
+        private String name = "未命名";
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void setName(String name) {
+            this.name = name;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas + "，車名：" + name);
+        }
+    }
+}
+
+════════════════════════════════════════════
+P51  建立並使用物件陣列
+目錄  CH3/P51
+
+檔案  CH3P51.java
+public class CH3P51 {
+    public static void main(String[] args) {
+        Car[] cars = new Car[3];
+        for (int i = 0; i < cars.length; i++) {
+            cars[i] = new Car();
+        }
+
+        cars[0].setCar(1234, 20.5);
+        cars[1].setCar(2345, 30.5);
+        cars[2].setCar(3456, 40.5);
+
+        for (Car car : cars) {
+            car.show();
+        }
+    }
+
+    static class Car {
+        private int num;
+        private double gas;
+
+        void setCar(int num, double gas) {
+            this.num = num;
+            this.gas = gas;
+        }
+
+        void show() {
+            System.out.println("車號：" + num + "，汽油量：" + gas);
+        }
+    }
+}
